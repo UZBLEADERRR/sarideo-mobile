@@ -85,7 +85,7 @@
   }
 
   function directorPrompt(topic, options) {
-    return `Sen Sarideo uchun o‘zbekcha video rejissyorisan. Mavzu: "${topic}". Format: ${options.format || 'Shorts'}, davomiylik: ${options.duration || 60} soniya. Faqat JSON qaytar, markdown ishlatma. Ko‘rinish: {"title":"...","hook":"...","scenes":[{"title":"...","duration":10,"narration":"...","visual":"...","transition":"..."}]}. 4-8 ta sahna yarat, fakt uydirma qilma, ovoz matni tabiiy va qisqa bo‘lsin.`;
+    return `Sen Sarideo uchun o‘zbekcha video rejissyorisan. Mavzu: "${topic}". Format: ${options.format || 'Shorts'}, davomiylik: ${options.duration || 60} soniya. Qahramon: ${options.hero || 'Avtomatik'}. Ovoz: ${options.voice || 'O‘zbekcha — erkak'}. Vizual uslub: ${options.visualStyle || 'Kinematik, realistik'}. Subtitr: ${options.subtitles || 'O‘zbekcha'}. Faqat JSON qaytar, markdown ishlatma. Ko‘rinish: {"title":"...","hook":"...","scenes":[{"title":"...","duration":10,"narration":"...","visual":"...","transition":"..."}]}. 4-8 ta sahna yarat, fakt uydirma qilma, ovoz matni tabiiy va qisqa bo‘lsin.`;
   }
 
   async function askDirector(topic, options, settings) {
@@ -102,9 +102,12 @@
     return balancedObject(responseText(response));
   }
 
-  function imagesmith(scenes, topic) {
+  function imagesmith(scenes, topic, options) {
+    const style = options.visualStyle || 'Kinematik, realistik';
+    const hero = options.hero || 'Avtomatik';
+    const ratio = options.format === 'Landscape · 16:9' ? 'horizontal 16:9' : options.format === 'Square · 1:1' ? 'square 1:1' : 'vertical 9:16';
     return scenes.map(scene => Object.assign({}, scene, {
-      imagePrompt: `Vertical 9:16 cinematic frame, ${scene.visual || scene.title}, mavzu: ${topic}, tabiiy ranglar, no text, high detail`
+      imagePrompt: `${ratio} ${style} frame, ${hero}, ${scene.visual || scene.title}, mavzu: ${topic}, tabiiy ranglar, no text, high detail`
     }));
   }
 
@@ -159,7 +162,7 @@
     const remote = await run('director', () => askDirector(subject, opts, settings));
     director = remote || { title: subject, hook: `Bugun ${subject} haqida bilib olamiz.` };
     let scenes = normalizeScenes(director.scenes, subject, opts.duration);
-    scenes = await run('imagesmith', () => imagesmith(scenes, subject)) || scenes;
+    scenes = await run('imagesmith', () => imagesmith(scenes, subject, opts)) || scenes;
     scenes = await run('choreographer', () => choreographer(scenes)) || scenes;
     scenes = await run('subtitler', () => subtitler(scenes)) || scenes;
     result.metadata = await run('publisher', () => publisher(subject, director, opts)) || publisher(subject, director, opts);

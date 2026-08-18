@@ -26,7 +26,15 @@
         <form id="create-form" class="create-form">
           <label for="topic">Video nima haqida?</label>
           <textarea id="topic" name="topic" rows="4" placeholder="Masalan: O‘zbekistondagi qadimiy shaharlar haqida 60 soniyalik Shorts..." required></textarea>
-          <div class="form-row"><button class="select-chip" type="button" data-action="toggle-format">Shorts · 9:16 <span>⌄</span></button><button class="select-chip" type="button" data-action="toggle-duration">60 soniya <span>⌄</span></button></div>
+          <div class="form-section-title">Video sozlamalari</div>
+          <div class="options-grid">
+            <label class="field"><span>Format</span><select id="format" name="format"><option value="Shorts · 9:16">Shorts · 9:16</option><option value="Landscape · 16:9">Landscape · 16:9</option><option value="Square · 1:1">Square · 1:1</option></select></label>
+            <label class="field"><span>Davomiylik</span><select id="duration" name="duration"><option value="15">15 soniya</option><option value="30">30 soniya</option><option value="60" selected>60 soniya</option><option value="90">90 soniya</option><option value="120">2 daqiqa</option></select></label>
+            <label class="field"><span>Qahramon</span><select id="hero" name="hero"><option value="Avtomatik">Avtomatik tanlash</option><option value="Haqiqiy inson">Haqiqiy inson</option><option value="Anime qahramon">Anime qahramon</option><option value="3D personaj">3D personaj</option><option value="Tarixiy shaxs">Tarixiy shaxs</option></select></label>
+            <label class="field"><span>Ovoz</span><select id="voice" name="voice"><option value="O‘zbekcha — erkak">O‘zbekcha — erkak</option><option value="O‘zbekcha — ayol">O‘zbekcha — ayol</option><option value="Inglizcha — erkak">Inglizcha — erkak</option><option value="Inglizcha — ayol">Inglizcha — ayol</option><option value="Ovozsiz">Ovozsiz</option></select></label>
+          </div>
+          <label class="field wide-field"><span>Vizual uslub</span><select id="visual-style" name="visualStyle"><option value="Kinematik, realistik">Kinematik, realistik</option><option value="Documentary">Documentary</option><option value="Anime">Anime</option><option value="3D animation">3D animation</option><option value="Vintage film">Vintage film</option></select></label>
+          <div class="options-grid compact-options"><label class="field"><span>Subtitr</span><select id="subtitles" name="subtitles"><option value="O‘zbekcha">O‘zbekcha</option><option value="Inglizcha">Inglizcha</option><option value="Ikki tilda">Ikki tilda</option><option value="O‘chirilgan">O‘chirilgan</option></select></label><label class="field"><span>Musiqa</span><select id="music" name="music"><option value="Mos fon musiqa">Mos fon musiqa</option><option value="Dramatik">Dramatik</option><option value="Quvnoq">Quvnoq</option><option value="O‘chirilgan">O‘chirilgan</option></select></label></div>
           <button class="primary-button" type="submit"><span>✦</span> Video yaratishni boshlash</button>
         </form>
         <div class="recent-block"><div class="section-heading"><h2>So‘nggi loyihalar</h2><button class="text-button" data-action="open-library">Barchasi</button></div><div id="recent-projects" class="project-list"></div></div>
