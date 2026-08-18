@@ -105,9 +105,10 @@
   function imagesmith(scenes, topic, options) {
     const style = options.visualStyle || 'Kinematik, realistik';
     const hero = options.hero || 'Avtomatik';
+    const heroReference = options.heroImage ? 'user-provided character reference image, preserve identity and costume' : 'consistent character design across every scene';
     const ratio = options.format === 'Landscape · 16:9' ? 'horizontal 16:9' : options.format === 'Square · 1:1' ? 'square 1:1' : 'vertical 9:16';
     return scenes.map(scene => Object.assign({}, scene, {
-      imagePrompt: `${ratio} ${style} frame, ${hero}, ${scene.visual || scene.title}, mavzu: ${topic}, tabiiy ranglar, no text, high detail`
+      imagePrompt: `${ratio} ${style} frame, ${hero}, ${heroReference}, ${scene.visual || scene.title}, mavzu: ${topic}, tabiiy ranglar, no text, high detail`
     }));
   }
 
@@ -151,7 +152,7 @@
     const agents = {};
     AGENT_NAMES.forEach(name => { agents[name] = { status: 'pending', error: null }; });
     const selectedProvider = String(settings.provider || settings.apiProvider || (settings.openaiKey ? 'openai' : 'gemini')).toLowerCase();
-    const result = { topic: subject, createdAt: new Date().toISOString(), agents, scenes: [], metadata: null, demo: !getKey(settings, selectedProvider === 'openai' ? 'openai' : 'gemini') };
+    const result = { topic: subject, createdAt: new Date().toISOString(), agents, scenes: [], metadata: null, demo: !getKey(settings, selectedProvider === 'openai' ? 'openai' : 'gemini'), media: { heroImage: opts.heroImage || '', images: [], voice: opts.voice === 'Ovozsiz' ? 'off' : 'pending', subtitles: opts.subtitles === 'O‘chirilgan' ? 'off' : 'ready', video: 'not-created', note: 'Rasm va ovoz provider API’si ulanmaguncha prompt va preview holatida.' } };
     let director = {};
     const run = async (name, task) => {
       agents[name].status = 'running';
