@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>Sarideo — AI video studio</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-label="Sarideo">S<span>.</span></div>
+      <div class="topbar-copy"><strong>Sarideo</strong><small>AI video studio</small></div>
+      <button class="icon-button" data-action="open-settings" aria-label="Sozlamalar">⚙</button>
+    </header>
+
+    <main id="app-main" class="screen-stack">
+      <section class="screen is-active" data-screen="create" aria-labelledby="create-title">
+        <div class="eyebrow">YANGI LOYIHA</div>
+        <h1 id="create-title">G‘oyangizni<br><em>videoga aylantiring.</em></h1>
+        <p class="lede">Mavzuni yozing. Sarideo ssenariy, sahnalar va montajni o‘zi tayyorlaydi.</p>
+        <form id="create-form" class="create-form">
+          <label for="topic">Video nima haqida?</label>
+          <textarea id="topic" name="topic" rows="4" placeholder="Masalan: O‘zbekistondagi qadimiy shaharlar haqida 60 soniyalik Shorts..." required></textarea>
+          <div class="form-row"><button class="select-chip" type="button" data-action="toggle-format">Shorts · 9:16 <span>⌄</span></button><button class="select-chip" type="button" data-action="toggle-duration">60 soniya <span>⌄</span></button></div>
+          <button class="primary-button" type="submit"><span>✦</span> Video yaratishni boshlash</button>
+        </form>
+        <div class="recent-block"><div class="section-heading"><h2>So‘nggi loyihalar</h2><button class="text-button" data-action="open-library">Barchasi</button></div><div id="recent-projects" class="project-list"></div></div>
+      </section>
+
+      <section class="screen" data-screen="studio" aria-labelledby="studio-title">
+        <div class="eyebrow">STUDIO</div><div class="screen-title-row"><h1 id="studio-title">Ish jarayoni</h1><span class="status-pill">● Qurilmada</span></div>
+        <div id="studio-empty" class="empty-state"><div class="empty-icon">✦</div><h2>Loyiha tanlanmagan</h2><p>Yangi video yarating yoki Kutubxonadan loyihani tanlang.</p><button class="secondary-button" data-action="new-project">+ Yangi loyiha</button></div>
+        <div id="studio-content" class="studio-content is-hidden"></div>
+      </section>
+
+      <section class="screen" data-screen="library" aria-labelledby="library-title">
+        <div class="eyebrow">ARXIV</div><div class="screen-title-row"><h1 id="library-title">Kutubxona</h1><button class="icon-button" data-action="new-project" aria-label="Yangi loyiha">＋</button></div>
+        <div class="filter-row"><button class="filter-button is-selected">Barchasi</button><button class="filter-button">Qoralama</button><button class="filter-button">Tayyor</button></div><div id="library-list" class="library-list"></div>
+      </section>
+
+      <section class="screen" data-screen="settings" aria-labelledby="settings-title">
+        <div class="eyebrow">SOZLAMALAR</div><h1 id="settings-title">Ulanishlar</h1><p class="lede">API kalitlaringiz faqat shu qurilmada saqlanadi.</p>
+        <div class="settings-card"><div class="card-label"><span class="provider-dot gemini"></span><div><strong>Google Gemini</strong><small>Ssenariy · rasm · ovoz</small></div><span id="gemini-status" class="status-text">Ulanmagan</span></div><label for="gemini-key">API kalit</label><input id="gemini-key" type="password" placeholder="AIza…" autocomplete="off" /><button class="secondary-button full-width" data-action="save-api">Kalitni saqlash</button></div>
+        <div class="settings-card"><div class="card-label"><span class="provider-dot openai"></span><div><strong>OpenAI-compatible</strong><small>Qo‘shimcha provider</small></div></div><label for="openai-endpoint">Endpoint</label><input id="openai-endpoint" type="url" placeholder="https://api.openai.com/v1" /><label for="openai-key">API kalit</label><input id="openai-key" type="password" placeholder="sk-…" autocomplete="off" /><button class="secondary-button full-width" data-action="save-api">Kalitni saqlash</button></div>
+        <div class="notice"><span>▣</span><p>Server yo‘q. So‘rovlar to‘g‘ridan-to‘g‘ri tanlangan API’ga yuboriladi.</p></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Asosiy navigatsiya"><button class="nav-item is-active" data-nav="create"><span>＋</span><small>Yaratish</small></button><button class="nav-item" data-nav="studio"><span>◈</span><small>Studio</small></button><button class="nav-item" data-nav="library"><span>▤</span><small>Arxiv</small></button><button class="nav-item" data-nav="settings"><span>⚙</span><small>Sozlama</small></button></nav>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="js/store.js"></script><script src="js/api.js"></script><script src="js/agents.js"></script><script src="js/ui.js"></script><script src="js/app.js"></script>
+</body>
+</html>
