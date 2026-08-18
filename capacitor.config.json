@@ -1,5 +1,9 @@
 {
-  "appId": "uz.daho.ilova",
-  "appName": "Ilova",
-  "webDir": "dist"
+  "appId": "uz.sarideo.app",
+  "appName": "Sarideo",
+  "webDir": "dist",
+  "backgroundColor": "#09090b",
+  "android": {
+    "backgroundColor": "#09090b"
+  }
 }

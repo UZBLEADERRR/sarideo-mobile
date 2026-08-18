@@ -1,10 +1,11 @@
-// Statik fayllarni "dist" papkaga koʻchiradi — Capacitor shu yerdan oladi.
+// Web ilova fayllarini Capacitor uchun dist/ papkasiga tayyorlaydi.
 import { cpSync, mkdirSync, rmSync } from 'node:fs';
 
 rmSync('dist', { recursive: true, force: true });
 mkdirSync('dist', { recursive: true });
 
-for (const file of ['index.html', 'style.css', 'app.js']) {
-  cpSync(file, `dist/${file}`);
+// HTML, CSS, JS va ularning papkalari bir xil tuzilishda ko‘chiriladi.
+for (const item of ['index.html', 'css', 'js']) {
+  cpSync(item, `dist/${item}`, { recursive: true });
 }
-console.log('dist tayyor');
+console.log('Sarideo dist tayyor: index.html + css/ + js/');
